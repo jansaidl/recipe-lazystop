@@ -1,0 +1,9 @@
+project:
+  name: recipe-lazystop
+  tags:
+    - zerops-recipe
+
+services:
+  - hostname: app
+    type: ubuntu@24.04
+    buildFromGit: https://github.com/jansaidl/recipe-lazystop@main

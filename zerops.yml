@@ -1,0 +1,18 @@
+zerops:
+  - setup: app
+    build:
+      base: go@latest
+      buildCommands:
+        - go build -o main main.go
+      deployFiles:
+       - main
+    run:
+      os: ubuntu
+      base: go@latest
+      envVariables:
+        YAML_startCommandKillTimeout: 150
+      initCommands:
+        - sudo mkdir -p  /etc/systemd/system/zerops@zerops.service.d
+        - "printf '[Service]\nDefaultTimeoutStopSec=150\n' | sudo tee /etc/systemd/system/zerops@zerops.service.d/custom.conf"
+        - sudo systemctl daemon-reload
+      start: ./main
